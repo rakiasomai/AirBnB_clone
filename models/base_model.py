@@ -5,6 +5,7 @@ import datetime
 import json
 import models
 
+
 class BaseModel:
     """
     class BaseModel
@@ -41,7 +42,7 @@ class BaseModel:
             update the update_at with the current datetime
             """
             self.updated_at = datetime.datetime.now()
-            models.storage.save() 
+            models.storage.save()
 
     def to_dict(self):
             """
