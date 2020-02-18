@@ -54,12 +54,3 @@ class BaseModel:
             dictt['updated_at'] = self.updated_at.isoformat()
             dictt['__class__'] = self.__class__.__name__
             return dictt
-
-    def to_json(self):
-        """convert to json"""
-        dupe = self.__dict__.copy()
-        dupe["created_at"] = str(dupe["created_at"])
-        if ("updated_at" in dupe):
-            dupe["updated_at"] = str(dupe["updated_at"])
-        dupe["__class__"] = type(self).__name__
-        return dupe
