@@ -27,7 +27,7 @@ class BaseModel:
             self.updated_at = datetime.datetime.strptime(kwargs['updated_at'],
                                                          time_format)
         else:
-            """storage.new(self)"""
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -41,6 +41,7 @@ class BaseModel:
             update the update_at with the current datetime
             """
             self.updated_at = datetime.datetime.now()
+            models.storage.save() 
 
     def to_dict(self):
             """
