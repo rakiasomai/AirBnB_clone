@@ -1,5 +1,8 @@
 #!/usr/bin/python3
+import shlex
 import cmd
+import models
+from models import storage
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -37,12 +40,68 @@ class HBNBCommand(cmd.Cmd):
         """
         if len(arg) == 0:
             print("** class name missing **")
+            return False
         if arg not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return False
+        objectt = eval(arg)()
+        print(objectt.id)
+        objectt.save()
+        storage.save()
+
+    def do_show(self, arg):
+        arg = shlex.split(arg)
+        if len(arg) == 0:
+            print("** class name missing **")
+            return False
+        if len(arg) == 1:
+            print("** instance id missing **")
+            return False
+        if arg[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return False
+        try:
+            key = arg[0] + "." + arg[1]
+            value = models.storage.all()[key]
+            print(value)
+        except KeyError:
+            print("** no instance found **")
+
+    def do_destroy(self, arg):
+        arg = shlex.split(arg)
+        if len(arg) == 0:
+            print("** class name missing **")
+            return False
+        if arg[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return False
+        if len(arg) == 1:
+            print("** instance id missing **")
+            return False
+        try:
+            key = arg[0] + "." + arg[1]
+            models.storage.all()[key]
+            models.storage.all().pop(key)
+            models.storage.save()
+        except KeyError:
+            print("** no instance found **")
+
+    def do_all(self, arg):
+        if len(arg) == 0:
+            obj = storage.all()
+            doc = []
+            for i in obj.values():
+                doc.append(str(i))
+            print(d)
+        elif arg in HBNBCommand.classes:
+            obj = storage.all()
+            doc = []
+            for i in obj.values():
+                if i.__class__.__name__ == arg:
+                    doc.append(str(i))
+            print(doc)
         else:
-            objectt = eval(arg)()
-            print(objectt.id)
-            objectt.save()
+            print("** class doesn't exist **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
