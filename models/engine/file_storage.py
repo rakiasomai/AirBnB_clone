@@ -31,17 +31,22 @@ class FileStorage:
 
     def save(self):
         """Save new model
-        """
+        
         to_store = {obj: FileStorage.__objects[obj].to_dict(
         ) for obj in FileStorage.__objects.keys()}
-        with open(FileStorage.__file_path, "a") as f:
-            json.dump(to_store, f, indent=2)
+        with open(FileStorage.__file_path, "a", encoding="utf-8") as f:
+            json.dump(to_store, f, indent=2)"""
+        d = {}
+        for key, value in self.__objects.items():
+            d[key] = value.to_dict()
+            with open(self.__file_path, mode='w', encoding="utf-8") as f:
+                f.write(json.dumps(d))
 
     def reload(self):
         """Reload data from json file
         """
         try:
-            with open(FileStorage.__file_path, mode='r') as f:
+            with open(FileStorage.__file_path, "r") as f:
                 data = json.load(f)
                 for i in data.values():
                     cl_name = i["__class__"]
