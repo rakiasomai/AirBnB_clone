@@ -3,9 +3,9 @@ from datetime import datetime
 from models import *
 
 
-class City(BaseModel):
+class Test_CityModel(unittest.TestCase):
     '''
-    Test the city model class
+    Testing the city model class(task)
     '''
 
     def setUp(self):
@@ -17,3 +17,7 @@ class City(BaseModel):
         self.assertTrue(hasattr(self.model, "state_id"))
         self.assertEqual(self.model.name, "")
         self.assertEqual(self.model.state_id, "")
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -3,7 +3,7 @@ from datetime import datetime
 from models import *
 
 
-class User(BaseModel):
+class Test_UserModel(unittest.TestCase):
     '''
     Testing the user model class(task)
     '''
@@ -21,3 +21,7 @@ class User(BaseModel):
         self.assertEqual(self.model.password, "")
         self.assertEqual(self.model.first_name, "")
         self.assertEqual(self.model.last_name, "")
+
+
+if __name__ == "__main__":
+    unittest.main()
