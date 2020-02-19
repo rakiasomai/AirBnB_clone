@@ -8,6 +8,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     classes = ["BaseModel", "User", "State",
                "City", "Amenity", "Place", "Review"]
@@ -28,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         pass
-    
+
     def do_create(self, arg):
         """
         Creates a new instance of BaseModel,
